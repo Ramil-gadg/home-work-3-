@@ -14,6 +14,8 @@
 		031B65E827C5545300865CDB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 031B65E627C5545300865CDB /* LaunchScreen.storyboard */; };
 		03BD422827C6D50600FA93C7 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03BD422727C6D50600FA93C7 /* String+Extension.swift */; };
 		03BD422C27C6DB2200FA93C7 /* Validview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03BD422B27C6DB2200FA93C7 /* Validview.swift */; };
+		03DBCF5527CD6F2D00C7B149 /* SRPViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DBCF5427CD6F2D00C7B149 /* SRPViewController.swift */; };
+		03DBCF5827CD707600C7B149 /* Validatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DBCF5727CD707600C7B149 /* Validatable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +28,8 @@
 		031B65E927C5545300865CDB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		03BD422727C6D50600FA93C7 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		03BD422B27C6DB2200FA93C7 /* Validview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validview.swift; sourceTree = "<group>"; };
+		03DBCF5427CD6F2D00C7B149 /* SRPViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SRPViewController.swift; sourceTree = "<group>"; };
+		03DBCF5727CD707600C7B149 /* Validatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validatable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,11 +62,13 @@
 		031B65DA27C5545000865CDB /* homeWork3 */ = {
 			isa = PBXGroup;
 			children = (
+				03DBCF5627CD705E00C7B149 /* Protocols */,
 				03BD422927C6DAD500FA93C7 /* UIKit */,
 				03BD422627C6D4EA00FA93C7 /* Extensions */,
 				031B65DB27C5545000865CDB /* AppDelegate.swift */,
 				031B65DD27C5545000865CDB /* SceneDelegate.swift */,
 				031B65DF27C5545000865CDB /* ViewController.swift */,
+				03DBCF5427CD6F2D00C7B149 /* SRPViewController.swift */,
 				031B65E427C5545300865CDB /* Assets.xcassets */,
 				031B65E627C5545300865CDB /* LaunchScreen.storyboard */,
 				031B65E927C5545300865CDB /* Info.plist */,
@@ -92,6 +98,14 @@
 				03BD422B27C6DB2200FA93C7 /* Validview.swift */,
 			);
 			path = UIViews;
+			sourceTree = "<group>";
+		};
+		03DBCF5627CD705E00C7B149 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				03DBCF5727CD707600C7B149 /* Validatable.swift */,
+			);
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -166,9 +180,11 @@
 			files = (
 				03BD422827C6D50600FA93C7 /* String+Extension.swift in Sources */,
 				03BD422C27C6DB2200FA93C7 /* Validview.swift in Sources */,
+				03DBCF5527CD6F2D00C7B149 /* SRPViewController.swift in Sources */,
 				031B65E027C5545000865CDB /* ViewController.swift in Sources */,
 				031B65DC27C5545000865CDB /* AppDelegate.swift in Sources */,
 				031B65DE27C5545000865CDB /* SceneDelegate.swift in Sources */,
+				03DBCF5827CD707600C7B149 /* Validatable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

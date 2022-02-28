@@ -47,7 +47,7 @@ enum ValidType {
     }
 }
 
-class Validview: UIView {
+class Validview: UIView, Validatable {
     
     private (set) var validType: ValidType
     weak var delegate: ValidViewProtocol?
@@ -139,15 +139,9 @@ class Validview: UIView {
     @objc
     func didTappedValidButton() {
         guard let text = validTextField.text else { return }
-        switch validType {
-        case .fullName:
-            validLabel.text = text.isValidFullName() ? text : validType.incorrectData
-            validLabel.textColor = text.isValidFullName() ? .systemGreen : .systemRed
-            delegate?.buttonDidTapped(with: validType.textAboutLastValidate)
-        case .email:
-            validLabel.text = text.isValidEmail() ? text : validType.incorrectData
-            validLabel.textColor = text.isValidEmail() ? .systemGreen : .systemRed
-            delegate?.buttonDidTapped(with: validType.textAboutLastValidate)
-        }
+        let isValid = validate(validType: validType, text: text)
+        validLabel.text = isValid ? text : validType.incorrectData
+        validLabel.textColor = isValid ? .systemGreen : .systemRed
+        delegate?.buttonDidTapped(with: validType.textAboutLastValidate)
     }
 }
