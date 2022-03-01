@@ -8,43 +8,7 @@
 import UIKit
 
 protocol ValidViewProtocol: AnyObject {
-    func buttonDidTapped(with text: String)
-}
-
-enum ValidType {
-    case email
-    case fullName
-    
-    var placeHolder: String {
-        switch self {
-        case .fullName:
-            return "введите имя..."
-        case .email:
-            return "введите email..."
-        }
-    }
-    
-    var labelText: String {
-        switch self {
-        case .fullName:
-            return "Имя и фамилия"
-        case .email:
-            return "Эл. почта"
-        }
-    }
-    
-    var textAboutLastValidate: String {
-        switch self {
-        case .fullName:
-            return "В последний раз были провалидированы имя и фамилия"
-        case .email:
-            return "В последний раз был провалидирован Email"
-        }
-    }
-    
-    var incorrectData: String {
-        return "Не правильные данные"
-    }
+    func buttonDidTapped(with isValid: Bool)
 }
 
 class Validview: UIView, Validatable {
@@ -60,25 +24,9 @@ class Validview: UIView, Validatable {
         return tf
     }()
     
-    private lazy var validButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.backgroundColor = .systemBlue
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .bold)
-        button.setTitle("Валидировать", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.setTitle("Не дави на меня", for: .highlighted)
-        button.layer.cornerRadius = 12
-        button.layer.shadowColor = UIColor.black.cgColor
-        button.layer.shadowOffset = CGSize(width: 2, height: 6)
-        button.layer.shadowRadius = 5
-        button.layer.shadowOpacity = 0.3
-        button.addTarget(self,
-                         action: #selector(didTappedValidButton),
-                         for: .touchUpInside
-        )
-        return button
-    }()
+    private lazy var validButton = CustomButton(
+        with: "Валидировать"
+    )
     
     private lazy var validLabel: UILabel = {
         let lbl = UILabel()
@@ -89,13 +37,16 @@ class Validview: UIView, Validatable {
         return lbl
     }()
     
-    
-    init(with type: ValidType, delegate: ValidViewProtocol) {
+    init(
+        with type: ValidType,
+        delegate: ValidViewProtocol
+    ) {
         self.validType = type
         self.delegate = delegate
         super.init(frame: .zero)
         configure()
         initConstraints()
+        initListeners()
     }
     
     required init?(coder: NSCoder) {
@@ -103,7 +54,6 @@ class Validview: UIView, Validatable {
     }
     
     private func configure() {
-        self.translatesAutoresizingMaskIntoConstraints = false
         self.backgroundColor = .secondarySystemBackground
         self.layer.cornerRadius = 12
         self.layer.shadowColor = UIColor.black.cgColor
@@ -118,6 +68,8 @@ class Validview: UIView, Validatable {
         self.addSubview(validTextField)
         self.addSubview(validButton)
         self.addSubview(validLabel)
+        self.translatesAutoresizingMaskIntoConstraints = false
+        validButton.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             validTextField.topAnchor.constraint(equalTo: self.topAnchor, constant: 20),
@@ -136,12 +88,16 @@ class Validview: UIView, Validatable {
         ])
     }
     
-    @objc
-    func didTappedValidButton() {
-        guard let text = validTextField.text else { return }
-        let isValid = validate(validType: validType, text: text)
-        validLabel.text = isValid ? text : validType.incorrectData
-        validLabel.textColor = isValid ? .systemGreen : .systemRed
-        delegate?.buttonDidTapped(with: validType.textAboutLastValidate)
+    func initListeners() {
+        validButton.buttonDidTapped = { [weak self] in
+            guard let self = self else {
+                return
+            }
+            guard let text = self.validTextField.text else { return }
+            let isValid = self.validate(validType: self.validType, text: text)
+            self.validLabel.text = isValid ? text : self.validType.incorrectData
+            self.validLabel.textColor = isValid ? .systemGreen : .systemRed
+            self.delegate?.buttonDidTapped(with: isValid)
+        }
     }
 }
